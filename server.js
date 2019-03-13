@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express()
 
-const apiKey = '*****************';
+const apiKey = '1368577cd12d9347a855a7bd04c54eb0';
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,7 +11,7 @@ app.set('view engine', 'ejs')
 
 app.get('/', function (req, res) {
   res.render('index', {weather: null, error: null});
-})
+});
 
 app.post('/', function (req, res) {
   let city = req.body.city;
@@ -25,13 +25,13 @@ app.post('/', function (req, res) {
       if(weather.main == undefined){
         res.render('index', {weather: null, error: 'Error, please try again'});
       } else {
-        let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+        let weatherText = `It's ${weather.main.temp} degrees F° in ${weather.name}!`;
         res.render('index', {weather: weatherText, error: null});
       }
     }
   });
-})
+});
 
-app.listen(3000, function () {
+app.listen(process.env.PORT,process.env.IP,function(){
   console.log('Example app listening on port 3000!')
-})
+});
